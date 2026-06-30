@@ -6,8 +6,8 @@ export  const dbConnect =async()=>{
 
     }
     catch(e){
-        throw new Error(e.Error);
-
+        console.log("DB connection failed:", e.message);
+        process.exit(1);
     }
 
 }

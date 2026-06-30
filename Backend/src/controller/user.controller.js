@@ -1,4 +1,5 @@
 import { User } from "../model/user.schema.js";
+import jwt from "jsonwebtoken";
 
 const generateTokens = (UserInstance) => {
     const AccessToken = UserInstance.getAccessToken();
@@ -23,6 +24,10 @@ const UserRegister = async (req, res)=>{
              return res.status(500).json({message : "something went wrong while saving user details in database"});
         }
 
+        return res.status(201).json({
+            message: "user registered",
+            user: { id: savingUser._id, Username: savingUser.Username, Email: savingUser.Email },
+        });
     }
     catch(e){
        return res.status(500).json("something went wrong while registering user");
@@ -54,7 +59,6 @@ const UserLoginController = async (req, res) => {
                 .status(500)
                 .json({ message: "Something went wrong while generating tokens" });
         }
-
         return res
             .status(200)
             .cookie("AccessToken", AccessToken, { httpOnly: true })
@@ -87,4 +91,27 @@ const userForgetPassword = async( req, res)=>{
 
 
 }
-export { UserLoginController,UserRegister,userForgetPassword  };
+const GenerateAccessToken = async (req, res)=>{
+    try{
+         const refreshtoken = req.cookies?.RefreshToken;
+    const verifyToken = jwt.verify(refreshtoken,process.env.REFRESH_TOKEN_SECRET);
+    if(!verifyToken){
+        return res.status(400).json({"message": " not valid token"});
+
+    }
+    const findUser = await User.findById(verifyToken.id);
+    if(!findUser){
+        return res.status(400).json({"message": "user not found"});
+    }
+    const accessToken = findUser.getAccessToken();
+    return res.cookie("AccessToken", accessToken, { httpOnly: true })
+.status(200).json({"message":"access token created"});
+
+    }
+    catch(e){
+        return res.status(400).json({"message":"something went wrong while genrating access token"});
+
+    }
+   
+}
+export { UserLoginController,UserRegister,userForgetPassword,GenerateAccessToken  };
