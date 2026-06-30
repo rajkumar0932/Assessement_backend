@@ -39,10 +39,10 @@ userSchema.methods.comparePassword = function (plain) {
     return bcrypt.compare(plain, this.Password);
 };
 userSchema.methods.getAccessToken = function (){
-    return jwt.verify({ id :this._id, username :this.username},process.env.ACCESS_TOKEN_SECRET,{expiresIn: process.env.ACCESS_TOKEN_EXPIRY})
+    return jwt.sign({ id :this._id, username :this.Username},process.env.ACCESS_TOKEN_SECRET,{expiresIn: process.env.ACCESS_TOKEN_EXPIRY})
 }
 userSchema.methods.getRefreshToken = function (){
-    return jwt.verify({ id :this._id, username :this.username},process.env.REFRESH_TOKEN_SECRET,{expiresIn: process.env.REFRESH_TOKEN_EXPIRY})
+    return jwt.sign({ id :this._id, username :this.Username},process.env.REFRESH_TOKEN_SECRET,{expiresIn: process.env.REFRESH_TOKEN_EXPIRY})
 }
 
 export const User = mongoose.model("User", userSchema);
