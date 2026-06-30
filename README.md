@@ -12,6 +12,11 @@ Backend/    -> Node + Express + MongoDB API
 Frontend/   -> React (Vite) + Tailwind dashboard
 ```
 
+## Live demo
+
+- **App (frontend):** https://assessement-backend.vercel.app
+- **API (backend):** https://assessementbackend-production.up.railway.app
+
 ## What it does
 
 - Sign up / log in with email + password (passwords are hashed with bcrypt)
