@@ -1,4 +1,3 @@
-// Reusable labeled input that shows a validation error underneath
 export default function Field({ label, error, ...props }) {
   return (
     <div className="flex flex-col gap-1">

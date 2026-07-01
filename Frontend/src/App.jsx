@@ -3,7 +3,6 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Products from "./pages/Products.jsx";
 
-// only let logged-in users reach the wrapped page
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem("AccessToken");
   return token ? children : <Navigate to="/login" replace />;

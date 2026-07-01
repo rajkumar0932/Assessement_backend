@@ -82,7 +82,6 @@ export default function Products() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-8">
       <div className="grid gap-6 lg:grid-cols-5">
-        {/* Add product form */}
         <div className="lg:col-span-2">
           <div className="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-100">
             <h2 className="mb-4 text-lg font-bold text-slate-800">Add Product</h2>
@@ -161,7 +160,6 @@ export default function Products() {
           </div>
         </div>
 
-        {/* Product list */}
         <div className="lg:col-span-3">
           <div className="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-100">
             <div className="mb-4 flex items-center justify-between">
